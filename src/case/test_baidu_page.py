@@ -2,7 +2,9 @@ import time
 import unittest
 
 from selenium import webdriver
-from utils.configReader import Config,DRIVER_PATH
+from utils.utilConfig import DRIVER_PATH
+from utils.configReader import Config
+from utils.log import logger
 
 class LoginTest(unittest.TestCase):
     URL = Config().get('URL')
@@ -29,7 +31,7 @@ class LoginTest(unittest.TestCase):
         #获取当前的URL
         links = self.driver.find_elements_by_xpath(".//div[contains(@class, \"result\")]/h3/a")
         for link in links:
-            print(link.text)
+            logger.info(link.text)
 
     @classmethod
     def tearDownClass(cls):
