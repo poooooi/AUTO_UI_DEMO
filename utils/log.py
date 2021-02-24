@@ -4,6 +4,7 @@
 import os
 import logging
 from logging.handlers import TimedRotatingFileHandler
+
 from utils.configReader import Config
 from utils.utilConfig import LOG_PATH
 

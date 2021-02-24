@@ -2,9 +2,11 @@ import time
 import unittest
 
 from selenium import webdriver
+
 from utils.utilConfig import DRIVER_PATH
 from utils.configReader import Config
 from utils.log import logger
+
 
 class LoginTest(unittest.TestCase):
     URL = Config().get('URL')
