@@ -5,7 +5,7 @@ import os
 import logging
 from logging.handlers import TimedRotatingFileHandler
 
-from utils.configReader import Config
+from utils.configReader import YamlConfig
 from utils.utilConfig import LOG_PATH
 
 
@@ -15,7 +15,7 @@ class Logger(object):
         logging.root.setLevel(logging.NOTSET)
 
         # 日志打印信息设定
-        log_yml_info = Config().get('log')
+        log_yml_info = YamlConfig().getYaml('log')
 
         # 1. 日志名称
         # 若yaml文件中存在log配置且log下有file_name配置，则取该配置;否则使用‘test.log’作为文件名
