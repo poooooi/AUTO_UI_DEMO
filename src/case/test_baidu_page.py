@@ -7,6 +7,7 @@ from utils.utilConfig import DRIVER_PATH
 from utils.configReader import YamlConfig, ExcelConfig
 from utils.log import logger
 
+
 excelData = ExcelConfig("searchText.xls", "搜索内容").getExcel()
 
 
