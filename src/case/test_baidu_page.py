@@ -1,3 +1,4 @@
+import os
 import ddt
 import time
 import unittest
@@ -6,7 +7,7 @@ from selenium import webdriver
 from utils.utilConfig import DRIVER_PATH
 from utils.configReader import YamlConfig, ExcelConfig
 from utils.log import logger
-
+from src.page.baidu_page import BaiduPage
 
 excelData = ExcelConfig("searchText.xls", "搜索内容").getExcel()
 
@@ -17,7 +18,10 @@ class WebTest(unittest.TestCase):
 
     @classmethod
     def setUpClass(cls):
-        cls.driver = webdriver.Chrome(executable_path=DRIVER_PATH + '\chromedriver.exe')
+        cls.driver = webdriver.Chrome(
+            executable_path=os.path.join(DRIVER_PATH, 'chromedriver.exe'))
+        cls.driver.maximize_window()
+        cls.baidupage = BaiduPage(cls.driver)
 
     def setUp(self):
         self.driver.get(self.URL)
@@ -31,12 +35,10 @@ class WebTest(unittest.TestCase):
         # 3.点击"搜索"按钮;
         # 4.抓取当前页面中所有结果的标题并输出
 
-        self.driver.find_element_by_xpath("//input[@id='kw']").send_keys(data)
-        self.driver.find_element_by_xpath("//input[@id='su']").click()
-        time.sleep(3)
-
+        self.baidupage.search_text(data)
         # 获取当前的URL
-        links = self.driver.find_elements_by_xpath(".//div[contains(@class, \"result\")]/h3/a")
+        links = self.driver.find_elements_by_xpath(
+            ".//div[contains(@class, \"result\")]/h3/a")
         for link in links:
             logger.info(link.text)
 

@@ -1,3 +1,7 @@
 .idea/*
 report/*
 log/*
+*/__pycache__/*
+src/case/__pycache__/*
+src/page/__pycache__/*
+src/common/__pycache__/*
