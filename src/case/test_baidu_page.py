@@ -36,9 +36,7 @@ class WebTest(unittest.TestCase):
         # 4.抓取当前页面中所有结果的标题并输出
 
         self.baidupage.search_text(data)
-        # 获取当前的URL
-        links = self.driver.find_elements_by_xpath(
-            ".//div[contains(@class, \"result\")]/h3/a")
+        links = self.baidupage.getResult()  # 获取当前的URL
         for link in links:
             logger.info(link.text)
 
