@@ -18,8 +18,15 @@ class WebTest(unittest.TestCase):
 
     @classmethod
     def setUpClass(cls):
-        cls.driver = webdriver.Chrome(
-            executable_path=os.path.join(DRIVER_PATH, 'chromedriver.exe'))
+        option = webdriver.ChromeOptions()
+        # 无头浏览器，执行时隐藏窗口
+        # option.add_argument('headless')
+        # 防止打印一些无用的日志
+        option.add_experimental_option("excludeSwitches",
+                                       ['enable-automation', 'enable-logging'])
+        cls.driver = webdriver.Chrome(chrome_options=option,
+                                      executable_path=os.path.join(
+                                          DRIVER_PATH, 'chromedriver.exe'))
         cls.driver.maximize_window()
         cls.baidupage = BaiduPage(cls.driver)
 
