@@ -20,10 +20,12 @@ class YamlConfig:
         """
         return self.config[index].get(yamlElement)
 
+
 class ExcelConfig:
-    def __init__(self, filename, sheetname='Sheet1', title_line=False):
+    def __init__(self, filename, sheetname='Sheet1', title_line=True):
         # print(DATA_PATH+"\\"+filename + ":" + sheetname)
-        self.excel = ExcelReader(DATA_PATH+"\\"+filename, sheetname, title_line).data
+        self.excel = ExcelReader(DATA_PATH + "\\" + filename, sheetname,
+                                 title_line).data
 
     def getExcel(self, index=0):
         return self.excel

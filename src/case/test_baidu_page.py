@@ -42,7 +42,7 @@ class WebTest(unittest.TestCase):
         # 3.点击"搜索"按钮;
         # 4.抓取当前页面中所有结果的标题并输出
 
-        self.baidupage.search_text(data)
+        self.baidupage.search_text(data['searchText'])
         links = self.baidupage.getResult()  # 获取当前的URL
         for link in links:
             logger.info(link.text)
