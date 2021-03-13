@@ -1,6 +1,7 @@
 .idea/*
 report/*
 log/*
+log/test.log
 */__pycache__/*
 src/case/__pycache__/*
 src/page/__pycache__/*
