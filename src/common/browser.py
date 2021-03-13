@@ -32,7 +32,7 @@ class UnSupportBrowserTypeError(Exception):
 
 
 class Browser(object):
-    def __init__(self, browser_type='firefox'):
+    def __init__(self, browser_type='chrome'):
         self._type = browser_type.lower()
         if self._type in TYPES:
             self.browser = TYPES[self._type]
@@ -41,12 +41,21 @@ class Browser(object):
         self.driver = None
 
     def get(self, url, maximize_window=True, implicitly_wait=30):
-        self.driver = self.browser(executable_path=EXECUTABLE_PATH[self._type])
+        if (self.browser == "chrome"):
+            option = webdriver.ChromeOptions()
+            # 无头浏览器，执行时隐藏窗口
+            # option.add_argument('headless')
+            # 防止打印一些无用的日志
+            option.add_experimental_option("excludeSwitches",
+                                        ['enable-automation', 'enable-logging'])
+            self.driver = webdriver.Chrome(chrome_options=option, executable_path=CHROMEDRIVER_PATH)
+        else:
+            self.driver = self.browser(executable_path=EXECUTABLE_PATH[self._type])
         self.driver.get(url)
         if maximize_window:
             self.driver.maximize_window()
         self.driver.implicitly_wait(implicitly_wait)
-        return self
+        return self.driver
 
     def save_screen_shot(self, name='screen_shot'):
         day = time.strftime('%Y%m%d', time.localtime(time.time()))

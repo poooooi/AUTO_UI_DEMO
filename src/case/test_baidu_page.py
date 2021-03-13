@@ -1,10 +1,8 @@
-import os
 import ddt
 import time
 import unittest
 
-from selenium import webdriver
-from utils.utilConfig import DRIVER_PATH
+from src.common.browser import Browser
 from utils.configReader import YamlConfig, ExcelConfig
 from utils.log import logger
 from src.page.baidu_page import BaiduPage
@@ -18,16 +16,9 @@ class WebTest(unittest.TestCase):
 
     @classmethod
     def setUpClass(cls):
-        option = webdriver.ChromeOptions()
-        # 无头浏览器，执行时隐藏窗口
-        # option.add_argument('headless')
-        # 防止打印一些无用的日志
-        option.add_experimental_option("excludeSwitches",
-                                       ['enable-automation', 'enable-logging'])
-        cls.driver = webdriver.Chrome(chrome_options=option,
-                                      executable_path=os.path.join(
-                                          DRIVER_PATH, 'chromedriver.exe'))
-        cls.driver.maximize_window()
+        cls.driver = Browser().get(cls.URL)
+        time.sleep(2)
+        # cls.driver.maximize_window()
         cls.baidupage = BaiduPage(cls.driver)
 
     def setUp(self):
@@ -42,7 +33,7 @@ class WebTest(unittest.TestCase):
         # 3.点击"搜索"按钮;
         # 4.抓取当前页面中所有结果的标题并输出
 
-        self.baidupage.search_text(data['searchText'])
+        self.baidupage.search_text(data['Stext'])
         links = self.baidupage.getResult()  # 获取当前的URL
         for link in links:
             logger.info(link.text)
