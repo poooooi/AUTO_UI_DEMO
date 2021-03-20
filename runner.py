@@ -66,5 +66,5 @@ if __name__ == '__main__':
           receiver='收件方邮箱',
           server='smtp.qq.com',
           sender='发送方邮箱',
-          password='发送方鉴权码',
+          password='发送方鉴权码内容',
           path=report_file).send()
